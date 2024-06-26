@@ -1,0 +1,15 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.3.2
+_src_path: https://github.com/jupyterlab/extension-template
+author_email: e.rubenperezm@go.ugr.es
+author_name: Rubén Pérez Mercado
+has_binder: true
+has_settings: false
+kind: frontend
+labextension_name: jupyterlab_apod
+project_short_description: Show a random NASA Astronomy Picture of the Day in a JupyterLab
+    panel
+python_name: jupyterlab_apod
+repository: https://github.com/rubenperezm/jupyterlab_apod
+test: true
+
