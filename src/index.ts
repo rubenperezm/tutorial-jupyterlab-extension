@@ -83,11 +83,15 @@ class APODWidget extends Widget {
       // Populate the image
       this.img.src = data.url;
       this.img.title = data.title;
-      this.summary.innerText = data.title + '\n' + data.explanation;
-      if (data.copyright) {
-        this.summary.innerText += ` (Copyright ${data.copyright.trim()})`;
+      this.img.onload = () => {
+        this.summary.innerText = data.title + '\n' + data.explanation;
+        if (data.copyright) {
+          this.summary.innerText += ` (Copyright ${data.copyright.trim()})`;
+        }
       }
     } else {
+      // Clean image
+      this.img.remove();
       this.summary.innerText = 'Random APOD fetched was not an image.';
     }
   }
