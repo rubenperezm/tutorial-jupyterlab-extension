@@ -34,7 +34,7 @@ class APODWidget extends Widget {
     this.a = document.createElement('a');
     this.a.target = '_blank';
     this.node.appendChild(this.a);
-    
+
     // Add an image element as a child of the anchor element
     this.img = document.createElement('img');
     this.a.appendChild(this.img);
@@ -62,8 +62,8 @@ class APODWidget extends Widget {
   * Handle update requests for the widget.
   */
   async updateAPODImage(): Promise<void> {
-
-    const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${this.randomDate()}`);
+    const date = this.randomDate();
+    const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${date}`);
 
     if (!response.ok) {
       const data = await response.json();
@@ -78,7 +78,8 @@ class APODWidget extends Widget {
     const data = await response.json() as APODResponse;
 
     if (data.media_type === 'image') {
-      this.a.href = data.url;
+      // Link the URL to the APOD's page
+      this.a.href = `https://apod.nasa.gov/apod/ap${date.replace(/-/g, '').substring(2)}.html`;
       // Populate the image
       this.img.src = data.url;
       this.img.title = data.title;
