@@ -7,7 +7,7 @@ import {
 import { 
   ICommandPalette,
   MainAreaWidget,
-  WidgetTracker
+  WidgetTracker,
 } from '@jupyterlab/apputils';
 
 import { Widget } from '@lumino/widgets';
@@ -72,9 +72,9 @@ class APODWidget extends Widget {
       // Populate the image
       this.img.src = data.url;
       this.img.title = data.title;
-      this.summary.innerText = data.title;
+      this.summary.innerText = data.title + '\n' + data.explanation;
       if (data.copyright) {
-        this.summary.innerText += ` (Copyright ${data.copyright})`;
+        this.summary.innerText += ` (Copyright ${data.copyright.trim()})`;
       }
     } else {
       this.summary.innerText = 'Random APOD fetched was not an image.';
@@ -126,6 +126,14 @@ function activate(app: JupyterFrontEnd, palette: ICommandPalette, restorer: ILay
       // Activate the widget
       app.shell.activateById(widget.id);
     }
+  });
+
+  // Add shortcut to the command
+  app.commands.addKeyBinding({
+    command: command,
+    args: {},
+    keys: ['Accel Alt P'],
+    selector: 'body'
   });
 
   // Add the command to the palette.
