@@ -30,15 +30,24 @@ class APODWidget extends Widget {
 
     this.addClass('my-apodWidget');
 
-    // Add an image element to the panel
+    // Add an anchor element to the panel
+    this.a = document.createElement('a');
+    this.a.target = '_blank';
+    this.node.appendChild(this.a);
+    
+    // Add an image element as a child of the anchor element
     this.img = document.createElement('img');
-    this.node.appendChild(this.img);
+    this.a.appendChild(this.img);
 
     // Add a summary element to the panel
     this.summary = document.createElement('p');
     this.node.appendChild(this.summary);
   }
 
+  /**
+   * The anchor element associated with the widget.
+   */
+  readonly a: HTMLAnchorElement;
   /**
   * The image element associated with the widget.
   */
@@ -69,6 +78,7 @@ class APODWidget extends Widget {
     const data = await response.json() as APODResponse;
 
     if (data.media_type === 'image') {
+      this.a.href = data.url;
       // Populate the image
       this.img.src = data.url;
       this.img.title = data.title;
